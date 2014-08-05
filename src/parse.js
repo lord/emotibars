@@ -33,7 +33,7 @@ var parse = function(string) {
         subcursor += 1;
       }
       if (subcursor === string.length) {
-        // throw error
+        throw new Error("no");
       }
       stack[stack.length - 1].tree.push({type: "var", val: substring});
       cursor = subcursor + 2;
@@ -45,7 +45,7 @@ var parse = function(string) {
         subcursor += 1;
       }
       if (checkSymbol(string.substr(subcursor, 3)) !== 1) {
-        // throw error
+        throw new Error("no");
       }
       var tree = {type: "block", val: substring, tree:[]};
       stack[stack.length - 1].tree.push(tree);
@@ -59,19 +59,27 @@ var parse = function(string) {
         subcursor += 1;
       }
       if (checkSymbol(string.substr(subcursor, 3)) !== 2) {
-        // throw error
+        throw new Error("no");
       }
       if (substring !== stack[stack.length - 1].val) {
-        // throw error
+        throw new Error("no");
       }
       stack.pop();
+      if (stack.length === 0) {
+        throw new Error("no");
+      }
       cursor = subcursor + 3;
     } else {
       subcursor = cursor;
       substring = "";
-      while(subcursor < string.length && checkSymbol(string.substr(subcursor, 3)) === 0) {
-        substring += string[subcursor];
-        subcursor += 1;
+      while(subcursor < string.length && (checkSymbol(string.substr(subcursor, 3)) === 0 || checkSymbol(string.substr(subcursor, 3)) === 4)) {
+        if (string[subcursor] === "`") {
+          substring += string[subcursor+1];
+          subcursor += 2;
+        } else {
+          substring += string[subcursor];
+          subcursor += 1;
+        }
       }
       stack[stack.length - 1].tree.push({type: "string", val: substring});
       cursor = subcursor;
