@@ -2,7 +2,12 @@ var lookup = function(data, selector) {
   if (selector === ".") {
     return data;
   } else {
-    return data[selector];
+    var selectors = selector.split('.');
+    var returnVal = data;
+    for (var i in selectors) {
+      returnVal = returnVal[selectors[i]];
+    }
+    return returnVal;
   }
 };
 
