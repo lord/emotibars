@@ -35,7 +35,7 @@ var parse = function(string) {
       if (subcursor === string.length) {
         throw new Error("no");
       }
-      stack[stack.length - 1].tree.push({type: "var", val: substring});
+      stack[stack.length - 1].tree.push({type: "var", val: substring.trim()});
       cursor = subcursor + 2;
     } else if (string[cursor] === "/" && string[cursor+1] === "o" && string[cursor+2] === "\\") {
       subcursor = cursor + 3;
@@ -52,7 +52,7 @@ var parse = function(string) {
       if (checkSymbol(string.substr(subcursor, 3)) !== 1) {
         throw new Error("no2");
       }
-      var tree = {type: "block", val: val, cmd: cmd, tree:[]};
+      var tree = {type: "block", val: val.trim(), cmd: cmd.trim(), tree:[]};
       stack[stack.length - 1].tree.push(tree);
       stack.push(tree);
       cursor = subcursor + 3;
