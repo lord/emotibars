@@ -1,4 +1,4 @@
-var Emotibars = require('../index.js');
+var Emotibars = require('../src');
 var should = require('should');
 
 describe('Emotibars', function(){

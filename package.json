@@ -2,7 +2,7 @@
   "name": "emotibars",
   "version": "0.0.0",
   "description": "emotibars =========",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/jasmine-node/bin/jasmine-node spec/"
   },
