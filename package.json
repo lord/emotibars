@@ -4,7 +4,7 @@
   "description": "emotibars =========",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/jasmine-node/bin/jasmine-node spec/"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lord/emotibars",
   "devDependencies": {
+    "jasmine-node": "^1.14.5",
     "should": "^4.0.4"
   }
 }
