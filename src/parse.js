@@ -45,7 +45,7 @@ var parse = function(string) {
         subcursor += 1;
       }
       if (checkSymbol(string.substr(subcursor, 3)) !== 1) {
-        throw new Error("no");
+        throw new Error("no2");
       }
       var tree = {type: "block", val: substring, tree:[]};
       stack[stack.length - 1].tree.push(tree);
@@ -59,14 +59,14 @@ var parse = function(string) {
         subcursor += 1;
       }
       if (checkSymbol(string.substr(subcursor, 3)) !== 2) {
-        throw new Error("no");
+        throw new Error("no3");
       }
       if (substring !== stack[stack.length - 1].val) {
-        throw new Error("no");
+        throw new Error("no4");
       }
       stack.pop();
       if (stack.length === 0) {
-        throw new Error("no");
+        throw new Error("no5");
       }
       cursor = subcursor + 3;
     } else {
