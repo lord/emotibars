@@ -3,19 +3,35 @@ var compile = function(ast) {
     // console.log("AST: %j", ast);
     // console.log("Data: %j", data);
     var output = "";
+    var tree;
     for (var i in ast.tree) {
-      switch(ast.tree[i].type) {
+      tree = ast.tree[i];
+      switch(tree.type) {
       case "block":
-        output += compile(ast.tree[i])(data[ast.tree[i].val]);
+        if (tree.cmd === "if") {
+          if (data[tree.val]) {
+            output += compile(tree)(data[tree.val]);
+          }
+        } else if (tree.cmd === "unless") {
+          if (!data[tree.val]) {
+            output += compile(tree)(data[tree.val]);
+          }
+        } else if (tree.cmd === "each") {
+          for (var j in data[tree.val]) {
+            output += compile(tree)(data[tree.val][j]);
+          }
+        } else {
+          throw new Error("command not recognized");
+        }
         break;
       case "string":
-        output += ast.tree[i].val;
+        output += tree.val;
         break;
       case "var":
-        if (ast.tree[i].val === ".") {
+        if (tree.val === ".") {
           output += data;
         } else {
-          output += data[ast.tree[i].val];
+          output += data[tree.val];
         }
         break;
       }
