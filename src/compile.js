@@ -1,3 +1,11 @@
+var lookup = function(data, selector) {
+  if (selector === ".") {
+    return data;
+  } else {
+    return data[selector];
+  }
+};
+
 var compile = function(ast) {
   return (function(data) {
     // console.log("AST: %j", ast);
@@ -9,16 +17,16 @@ var compile = function(ast) {
       switch(tree.type) {
       case "block":
         if (tree.cmd === "if") {
-          if (data[tree.val]) {
-            output += compile(tree)(data[tree.val]);
+          if (lookup(data,tree.val)) {
+            output += compile(tree)(lookup(data,tree.val));
           }
         } else if (tree.cmd === "unless") {
-          if (!data[tree.val]) {
-            output += compile(tree)(data[tree.val]);
+          if (!lookup(data,tree.val)) {
+            output += compile(tree)(lookup(data,tree.val));
           }
         } else if (tree.cmd === "each") {
-          for (var j in data[tree.val]) {
-            output += compile(tree)(data[tree.val][j]);
+          for (var j in lookup(data,tree.val)) {
+            output += compile(tree)(lookup(data,tree.val)[j]);
           }
         } else {
           throw new Error("command not recognized");
@@ -28,11 +36,7 @@ var compile = function(ast) {
         output += tree.val;
         break;
       case "var":
-        if (tree.val === ".") {
-          output += data;
-        } else {
-          output += data[tree.val];
-        }
+        output += lookup(data,tree.val);
         break;
       }
     }
