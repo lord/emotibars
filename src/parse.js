@@ -39,15 +39,20 @@ var parse = function(string) {
       cursor = subcursor + 2;
     } else if (string[cursor] === "/" && string[cursor+1] === "o" && string[cursor+2] === "\\") {
       subcursor = cursor + 3;
-      substring = "";
+      cmd = "";
+      val = "";
+      while(subcursor < string.length && checkSymbol(string.substr(subcursor, 3)) === 0 && string[subcursor] !== " ") {
+        cmd += string[subcursor];
+        subcursor += 1;
+      }
       while(subcursor < string.length && checkSymbol(string.substr(subcursor, 3)) === 0) {
-        substring += string[subcursor];
+        val += string[subcursor];
         subcursor += 1;
       }
       if (checkSymbol(string.substr(subcursor, 3)) !== 1) {
         throw new Error("no2");
       }
-      var tree = {type: "block", val: substring, tree:[]};
+      var tree = {type: "block", val: val, cmd: cmd, tree:[]};
       stack[stack.length - 1].tree.push(tree);
       stack.push(tree);
       cursor = subcursor + 3;
@@ -61,7 +66,9 @@ var parse = function(string) {
       if (checkSymbol(string.substr(subcursor, 3)) !== 2) {
         throw new Error("no3");
       }
-      if (substring !== stack[stack.length - 1].val) {
+      if (substring !== stack[stack.length - 1].cmd) {
+        console.log(substring);
+        console.log(stack[stack.length - 1].cmd);
         throw new Error("no4");
       }
       stack.pop();
