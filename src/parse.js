@@ -67,8 +67,6 @@ var parse = function(string) {
         throw new Error("no3");
       }
       if (substring !== stack[stack.length - 1].cmd) {
-        console.log(substring);
-        console.log(stack[stack.length - 1].cmd);
         throw new Error("no4");
       }
       stack.pop();
@@ -91,6 +89,9 @@ var parse = function(string) {
       stack[stack.length - 1].tree.push({type: "string", val: substring});
       cursor = subcursor;
     }
+  }
+  if (stack.length > 1) {
+    throw new Error("WRONG");
   }
   return output;
 };

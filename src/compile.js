@@ -21,6 +21,9 @@ var compile = function(ast) {
       tree = ast.tree[i];
       switch(tree.type) {
       case "block":
+        if (tree.val.match(/ /)) {
+          throw new Error("FAILURE");
+        }
         if (tree.cmd === "if") {
           if (lookup(data,tree.val)) {
             output += compile(tree)(lookup(data,tree.val));
