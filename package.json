@@ -1,0 +1,22 @@
+{
+  "name": "emotibars",
+  "version": "0.0.0",
+  "description": "emotibars =========",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lord/emotibars.git"
+  },
+  "author": "Robert Lord",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/lord/emotibars/issues"
+  },
+  "homepage": "https://github.com/lord/emotibars",
+  "devDependencies": {
+    "should": "^4.0.4"
+  }
+}
